@@ -1,5 +1,6 @@
 use Arenda;
 drop table Clients;
+drop table Coefficients;
 drop table Cars;
 drop table Contracts;
 drop table DTP
@@ -13,11 +14,21 @@ Telephone_client nvarchar(10),
 Address_client nvarchar(50)
 )
 
+create table Coefficients(
+Id int identity (1,1) primary key,
+Date_coef_start date,
+Date_coef_end date,
+Coefficient float,
+[Description] nvarchar(max)
+)
+
 create table Cars(
 Id_car int IDENTITY(1,1) primary key,
 Marka_car nvarchar(50),
 Color_car nvarchar(50),
-Status_car nvarchar(50)
+Status_car nvarchar(50),
+Coefficient int not null default 1,
+FOREIGN KEY (Coefficient) REFERENCES Coefficients(Id),
 )
 
 create table Contracts(
@@ -31,16 +42,15 @@ FOREIGN KEY (Client) REFERENCES Clients(Id_client),
 FOREIGN KEY (Car) REFERENCES Cars(Id_car)
 )
 
+
 create table DTP(
 Id_dtp int IDENTITY(1,1) primary key,
 Date_dtp date,
 Id_contract int,
-Id_car int,
 Procent_broken int,
 About_dtp varchar(50),
 CHECK (Procent_broken between 1 and 100),
-FOREIGN KEY (Id_contract) REFERENCES Contracts(Id_contract),
-FOREIGN KEY (Id_car) REFERENCES Cars(Id_car)
+FOREIGN KEY (Id_contract) REFERENCES Contracts(Id_contract)
 )
 
 
@@ -72,10 +82,10 @@ Insert into Contracts values('16-02-2019','17-02-2019', 2,2 ,200);
 
 select * from Contracts;
 
-Insert into DTP values('20-02-2019',6,3,10,'Pozarapal krylo');
-Insert into DTP values('24-02-2019',7,3,20,'Pozarapal vtoroe krylo');
-Insert into DTP values('28-02-2019',8,3,95,'Razbila');
-Insert into DTP values('17-02-2019',9,2,10,'Pozarapala krylo');
+Insert into DTP values('20-02-2019',6,10,'Pozarapal krylo');
+Insert into DTP values('24-02-2019',7,20,'Pozarapal vtoroe krylo');
+Insert into DTP values('28-02-2019',8,95,'Razbila');
+Insert into DTP values('17-02-2019',9,10,'Pozarapala krylo');
 
 select * from DTP;
 --------------------------------------------------------------------------------------------------------------------------
