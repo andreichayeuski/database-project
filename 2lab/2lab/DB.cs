@@ -144,14 +144,13 @@ namespace _2lab
         }
         //---------------------------------------------------------------------------------------------------
 
-        public void add_dtp(DateTime datedtp,  int contract, int car,int proc, string about)
+        public void add_dtp(DateTime datedtp,  int contract, int proc, string about)
         {
             using (SqlCommand cmd = new SqlCommand("add_dtp", conn))
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@datedtp", datedtp);
                 cmd.Parameters.AddWithValue("@contract", contract);
-                cmd.Parameters.AddWithValue("@car", car);
                 cmd.Parameters.AddWithValue("@procent", proc);
                 cmd.Parameters.AddWithValue("@about", about);
                 cmd.ExecuteNonQuery();
@@ -170,14 +169,13 @@ namespace _2lab
 
         }
 
-        public void change_dtp(DateTime datedtp, int contract, int car,int proc, string about)
+        public void change_dtp(DateTime datedtp, int contract,int proc, string about)
         {
             using (SqlCommand cmd = new SqlCommand("change_dtp", conn))
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@datedtp", datedtp);
                 cmd.Parameters.AddWithValue("@contract", contract);
-                cmd.Parameters.AddWithValue("@car", car);
                 cmd.Parameters.AddWithValue("@procent", proc);
                 cmd.Parameters.AddWithValue("@about", about);
                 cmd.ExecuteNonQuery();
