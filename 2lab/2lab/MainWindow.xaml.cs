@@ -309,7 +309,6 @@ namespace _2lab
             DateTime datedtp = DateDtp.SelectedDate.Value;
 
             int contract = Convert.ToInt32(textBoxIdContract.Text);
-            int car = Convert.ToInt32(textBoxIdCar.Text);
             int proc = Convert.ToInt32(textBoxProcent.Text);
             string about = textBoxAbout.Text;
             if (DateDtp.SelectedDate.Value == null || about.Length == 0)
@@ -320,7 +319,7 @@ namespace _2lab
             {
                 DB db = new DB();
                 db.openConnection(connStr);
-                db.add_dtp(datedtp, contract, car, proc, about);
+                db.add_dtp(datedtp, contract, proc, about);
                 MessageBox.Show("Выполнено !!!");
                 db.closeConnection();
             }
@@ -351,7 +350,6 @@ namespace _2lab
             DateTime datedtp = DateDtp.SelectedDate.Value;
 
             int contract = Convert.ToInt32(textBoxIdContract.Text);
-            int car = Convert.ToInt32(textBoxIdCar.Text);
             int proc = Convert.ToInt32(textBoxProcent.Text);
             string about = textBoxAbout.Text;
             if (DateDtp.SelectedDate.Value == null || about.Length == 0)
@@ -362,7 +360,7 @@ namespace _2lab
             {
                 DB db = new DB();
                 db.openConnection(connStr);
-                db.change_dtp(datedtp, contract, car, proc, about);
+                db.change_dtp(datedtp, contract,  proc, about);
                 MessageBox.Show("Выполнено !!!");
                 db.closeConnection();
             }

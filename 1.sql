@@ -1,6 +1,5 @@
 use Arenda;
 drop table Clients;
-drop table Coefficients;
 drop table Cars;
 drop table Contracts;
 drop table DTP
@@ -14,21 +13,11 @@ Telephone_client nvarchar(10),
 Address_client nvarchar(50)
 )
 
-create table Coefficients(
-Id int identity (1,1) primary key,
-Date_coef_start date,
-Date_coef_end date,
-Coefficient float,
-[Description] nvarchar(max)
-)
-
 create table Cars(
 Id_car int IDENTITY(1,1) primary key,
 Marka_car nvarchar(50),
 Color_car nvarchar(50),
-Status_car nvarchar(50),
-Coefficient int not null default 1,
-FOREIGN KEY (Coefficient) REFERENCES Coefficients(Id),
+Status_car nvarchar(50)
 )
 
 create table Contracts(
@@ -160,7 +149,7 @@ AS
 INSERT INTO History(Operation)
 SELECT  'Добавлена машина' + Marka_car + '   цвета ' + Color_car + ' Статуса ' + Status_car FROM inserted
 
-Insert into Cars values('Lada Vesta','Gray','New');
+Insert into Cars values('Lada Vesta','Green','New');
 select * from History;
 
 
@@ -301,13 +290,12 @@ INNER JOIN  Cars ON Contracts.Car = Cars.Id_car);
 CREATE PROCEDURE add_dtp
     @datedtp date,
 	@contract int,
-	@car int,
 	@procent int,
 	@about varchar(50)
 AS
 	BEGIN
-		INSERT INTO DTP(Date_dtp,Id_contract,Id_car,Procent_broken,About_dtp)
-		values(	@datedtp,@contract,@car,@procent,@about)
+		INSERT INTO DTP(Date_dtp,Id_contract,Procent_broken,About_dtp)
+		values(	@datedtp,@contract,@procent,@about)
 		SELECT 0;
 	END
 GO
@@ -324,12 +312,11 @@ GO
 CREATE PROCEDURE change_dtp
     @datedtp date,
 	@contract int,
-	@car int,
 	@procent int,
 	@about varchar(50)
 AS
 	BEGIN
-	update DTP set Date_dtp=@datedtp,Id_car=@car,Procent_broken=@procent,About_dtp=@about 
+	update DTP set Date_dtp=@datedtp,Procent_broken=@procent,About_dtp=@about 
 	where Id_contract=@contract;
 		SELECT 0;
 	END
