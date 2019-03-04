@@ -27,8 +27,8 @@ Date_arenda_end date,
 Client int,
 Car int,
 Cost_arenda int,
-FOREIGN KEY (Client) REFERENCES Clients(Id_client),
-FOREIGN KEY (Car) REFERENCES Cars(Id_car)
+FOREIGN KEY (Client) REFERENCES Clients(Id_client) ON DELETE CASCADE,
+FOREIGN KEY (Car) REFERENCES Cars(Id_car) ON DELETE CASCADE
 )
 
 
@@ -39,13 +39,13 @@ Id_contract int,
 Procent_broken int,
 About_dtp varchar(50),
 CHECK (Procent_broken between 1 and 100),
-FOREIGN KEY (Id_contract) REFERENCES Contracts(Id_contract)
+FOREIGN KEY (Id_contract) REFERENCES Contracts(Id_contract) ON DELETE CASCADE
 )
 
 
 insert into Clients values('Petya','RR12345678',3,'147-12-92','Ymanskaya 19');
 insert into Clients values('Alla','RR12345687',1 ,'159-29-49','Katachatova 12');
-insert into Clients values('Anastasya','RR12345687',2,'147-87-74','Azbekova 8');
+insert into Clients values('Anastasya','RR1234567',2,'147-87-74','Azbekova 8');
 insert into Clients values('Nikolay','RR1475236',5 ,'156-23-34','Armena 121');
 insert into Clients values('Vasiliy','RR87654321',6 ,'785-63-98','Aleva 23');
 
@@ -273,7 +273,7 @@ CREATE PROCEDURE change_contract
 AS
 	BEGIN
 	update Contracts set Date_arenda_start=@datestart,Date_arenda_end=@dateend,Car=@car,Cost_arenda=@cost 
-	where Client=@client;
+	where Client=@client and Car = @car
 		SELECT 0;
 	END
 GO
@@ -334,7 +334,10 @@ AS
 	BEGIN
 SELECT Contracts.Date_arenda_start, Contracts.Date_arenda_end, Clients.Name_client,
 Cars.Marka_car, Contracts.Cost_arenda FROM ((Contracts
-INNER JOIN  Clients ON Contracts.Client = Clients.Id_client)
-INNER JOIN  Cars ON Contracts.Car = Cars.Id_car) ORDER BY Contracts.Cost_arenda asc;
+	INNER JOIN  Clients ON Contracts.Client = Clients.Id_client)
+	INNER JOIN  Cars ON Contracts.Car = Cars.Id_car) 
+	where Contracts.Date_arenda_start between @datestart and @dateend
+ORDER BY Contracts.Cost_arenda asc;
 	END
 GO
+drop procedure spisok_arend
