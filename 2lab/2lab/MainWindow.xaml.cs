@@ -27,11 +27,11 @@ namespace _2lab
             InitializeComponent();
         }
 
-        string connStr = @"Data Source=VOKAMRECOM-PC;Initial Catalog=Arenda;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        DataTable LibTable1 = new DataTable();
-        DataTable LibTable2 = new DataTable();
-        DataTable LibTable3 = new DataTable();
-        DataTable LibTable4 = new DataTable();
+        string connStr = @"Data Source=ANDREICHAYEUSKI;Initial Catalog=Arenda;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        DataTable Clients = new DataTable();
+        DataTable Contracts = new DataTable();
+        DataTable DTPs = new DataTable();
+        DataTable Cars = new DataTable();
 
         private void addClient_Click(object sender, RoutedEventArgs e)
         {
@@ -106,11 +106,11 @@ namespace _2lab
                     connection.Open();
                     SqlDataAdapter command = new SqlDataAdapter(sqlExpression, connection);
                     // указываем, что команда представляет хранимую процедуру
-                    LibTable1.Clear();
+                    Clients.Clear();
                     // Заполняем Dataset
-                    command.Fill(LibTable1);
+                    command.Fill(Clients);
                     // Отображаем данные
-                    usersGrid.ItemsSource = LibTable1.DefaultView;
+                    usersGrid.ItemsSource = Clients.DefaultView;
                     MessageBox.Show("Выполнено !!!");
                     connection.Close();
                 }
@@ -194,11 +194,11 @@ namespace _2lab
                     connection.Open();
                     SqlDataAdapter command = new SqlDataAdapter(sqlExpression, connection);
                     // указываем, что команда представляет хранимую процедуру
-                    LibTable4.Clear();
+                    Cars.Clear();
                     // Заполняем Dataset
-                    command.Fill(LibTable4);
+                    command.Fill(Cars);
                     // Отображаем данные
-                    CarsGrid.ItemsSource = LibTable4.DefaultView;
+                    CarsGrid.ItemsSource = Cars.DefaultView;
                     MessageBox.Show("Выполнено !!!");
                     connection.Close();
                 }
@@ -289,11 +289,11 @@ namespace _2lab
                     connection.Open();
                     SqlDataAdapter command = new SqlDataAdapter(sqlExpression, connection);
                     // указываем, что команда представляет хранимую процедуру
-                    LibTable2.Clear();
+                    Contracts.Clear();
                     // Заполняем Dataset
-                    command.Fill(LibTable2);
+                    command.Fill(Contracts);
                     // Отображаем данные
-                    contractsGrid.ItemsSource = LibTable2.DefaultView;
+                    contractsGrid.ItemsSource = Contracts.DefaultView;
                     MessageBox.Show("Выполнено !!!");
                     connection.Close();
                 }
@@ -377,11 +377,11 @@ namespace _2lab
                     connection.Open();
                     SqlDataAdapter command = new SqlDataAdapter(sqlExpression, connection);
                     // указываем, что команда представляет хранимую процедуру
-                    LibTable3.Clear();
+                    DTPs.Clear();
                     // Заполняем Dataset
-                    command.Fill(LibTable3);
+                    command.Fill(DTPs);
                     // Отображаем данные
-                    dtpGrid.ItemsSource = LibTable3.DefaultView;
+                    dtpGrid.ItemsSource = DTPs.DefaultView;
                     MessageBox.Show("Выполнено !!!");
                     connection.Close();
                 }
