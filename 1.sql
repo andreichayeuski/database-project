@@ -27,10 +27,12 @@ Date_arenda_end date,
 Client int,
 Car int,
 Cost_arenda int,
+Year_arenda_start as year(Date_arenda_start),
 FOREIGN KEY (Client) REFERENCES Clients(Id_client) ON DELETE CASCADE,
 FOREIGN KEY (Car) REFERENCES Cars(Id_car) ON DELETE CASCADE
 )
 
+alter table Contracts add  Year_arenda_start as year(Date_arenda_start)
 
 create table DTP(
 Id_dtp int IDENTITY(1,1) primary key,
